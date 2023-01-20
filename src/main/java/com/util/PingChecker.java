@@ -8,9 +8,7 @@ import com.entity.ResultOfCheck;
 
 public class PingChecker implements Checker{
 
-	@Override
 	public ResultOfCheck check(Host host) {
-		
 		InetAddress inet;
 		try {
 			inet = InetAddress.getByName(host.getUrl());
@@ -23,6 +21,8 @@ public class PingChecker implements Checker{
 
 		return new ResultOfCheck(host,false);
 	}
+
+	
 
 
 
