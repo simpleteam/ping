@@ -1,28 +1,26 @@
-package com.util;
+package ping;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.time.Duration;
 
-import org.apache.log4j.Logger;
-
-import com.entity.Host;
 import com.entity.ResultOfCheck;
 
-public class HttpChecker implements Checker {
+public class MainTest {
 
-	
-	public ResultOfCheck check(Host host) {
+	public static void main(String[] args) {
+		
+		String host = "http://ex.ics.gov.ua/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fex.ics.gov.ua%2fowa%2f";
+		
+		
 		HttpRequest request = null;
 		try {
-			request = HttpRequest.newBuilder(new URI(host.getUrl())).timeout(Duration.ofSeconds(5)).GET().build();
+			request = HttpRequest.newBuilder(new URI(host)).GET().build();
 		} catch (URISyntaxException e) {
-			System.out.println(e);
+			System.out.println("1");
 		}
 		
 		HttpClient client = HttpClient.newBuilder().build();
@@ -30,20 +28,16 @@ public class HttpChecker implements Checker {
 		HttpResponse<String> response = null;
 		try {
 			response = client.send(request, BodyHandlers.ofString());
+			System.out.println(response);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(2);
 		}
 		
-		if(response != null) {
-			if(response.statusCode() == 200) {
-				return new ResultOfCheck(host,true);
-			}
-		}
-		
-
-		return new ResultOfCheck(host,false);
-	}
-
 	
+		
+		
+		
+
+	}
 
 }
