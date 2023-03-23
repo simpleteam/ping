@@ -115,7 +115,7 @@ public class CheckService {
 
 			List<Future<ResultOfCheck>> result = es.invokeAll(tasks);
 			check(result);
-			Thread.currentThread().sleep(20000);
+			Thread.currentThread().sleep(60000);
 		}
 
 	}
