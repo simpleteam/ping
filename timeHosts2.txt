@@ -1,0 +1,10 @@
+
+http://reyestr1.court.gov.ua reyestr.court.gov.ua_249_IIS HTTP
+http://reyestr2.court.gov.ua reyestr.court.gov.ua_49_IIS HTTP
+http://reyestr3.court.gov.ua reyestr.court.gov.ua_167_IIS HTTP
+http://reyestr4.court.gov.ua reyestr.court.gov.ua_150_IIS HTTP
+http://reyestr5.court.gov.ua reyestr.court.gov.ua_148_IIS HTTP
+http://reyestr6.court.gov.ua reyestr.court.gov.ua_110_IIS HTTP
+http://reyestr7.court.gov.ua reyestr.court.gov.ua_213_IIS HTTP
+http://reyestr8.court.gov.ua reyestr.court.gov.ua_162_IIS HTTP
+http://reyestr9.court.gov.ua reyestr.court.gov.ua_168_IIS HTTP

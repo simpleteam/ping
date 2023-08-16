@@ -26,6 +26,7 @@ import com.entity.ResultOfCheck;
 import com.entity.TypeOfHost;
 import com.util.Checker;
 import com.util.HttpChecker;
+import com.util.HttpPostChecker;
 import com.util.PingChecker;
 import com.util.Task;
 
@@ -37,11 +38,30 @@ public class CheckService {
 	private List<Host> hosts = new ArrayList<>();
 	private List<Host> timeHosts = new ArrayList<>();
 	private Alarm alarm = new TelegramAlarm();
+	
+	String path = "http://212.90.190.164/restapi/GOV/26255795/16_EDRSR_prod/v1/rpc?xRoadInstance=SEVDEIR&memberClass=GOV&memberCode=26255795&subsystemCode=16_EDRSR_prod&serviceCode=rpc&serviceVersion=v1&queryId=123";
+	Host trembita = new Host(path,"TREMBITA",TypeOfHost.POST);
 
 	private void initCheckers() {
 		System.out.println("init checkers");
 		checkers.put(TypeOfHost.HTTP, new HttpChecker());
 		checkers.put(TypeOfHost.IP, new PingChecker());
+		
+		String body = "{\r\n"
+				+ "    \"jsonrpc\": \"2.0\",\r\n"
+				+ "    \"method\": \"EdrsrDocuments.find\",\r\n"
+				+ "    \"id\": \"eb15f8ae-0248-4fde-b048-60260616b298\",\r\n"
+				+ "    \"params\": {\r\n"
+				+ "        \"where\": {\r\n"
+				+ "          \"caseNum\": \"679/1040/21\",\r\n"
+				+ "  \"courtId\": \"2211\",\r\n"
+				+ "  \"docDate\": \"2023-02-23\",\r\n"
+				+ "  \"docTypeId\": \"3\"\r\n"
+				+ "}\r\n"
+				+ "        }\r\n"
+				+ "    }s";
+		
+		checkers.put(TypeOfHost.POST, new HttpPostChecker(body));
 
 	}
 
@@ -73,9 +93,9 @@ public class CheckService {
 
 		System.out.println("init hosts");
 		
-		Path filePath = Path.of("/home/dc_admin/monitoring/hosts/timeHosts.txt");
+		Path filePath = Path.of("hosts/timeHosts.txt");
 		timeHosts = setUp(filePath);
-		filePath = Path.of("/home/dc_admin/monitoring/hosts/hosts.txt");
+		filePath = Path.of("hosts/hosts.txt");
 		hosts = setUp(filePath);
 	
 		for (Host host : hosts) {
@@ -85,6 +105,8 @@ public class CheckService {
 		for(Host host : timeHosts) {
 			flag.put(host, 0);
 		}
+		
+		flag.put(trembita, 0);
 		
 	}
 
@@ -103,6 +125,11 @@ public class CheckService {
 			timeTasks.add(new Task(checkers.get(host.getType()), host));
 		}
 		
+//		String path = "http://212.90.190.150/restapi/GOV/26255795/16_EDRSR_prod/v1/rpc?xRoadInstance=SEVDEIR-TEST&memberClass=GOV&memberCode=26255795&subsystemCode=16_EDRSR_prod&serviceCode=rpc&serviceVersion=v1&queryId=123";
+//		Host trembita = new Host(path,"TREMBITA",TypeOfHost.POST);
+		
+		tasks.add(new Task(checkers.get(TypeOfHost.POST), trembita));
+		
 		ExecutorService es = Executors.newCachedThreadPool();
 
 		while (true) {
@@ -115,7 +142,7 @@ public class CheckService {
 
 			List<Future<ResultOfCheck>> result = es.invokeAll(tasks);
 			check(result);
-			Thread.currentThread().sleep(60000);
+			Thread.currentThread().sleep(120000);
 		}
 
 	}
