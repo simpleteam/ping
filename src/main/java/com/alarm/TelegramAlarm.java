@@ -19,10 +19,21 @@ public class TelegramAlarm implements Alarm {
 	@Override
 	public void alarm(ResultOfCheck resultOfCheck, String msg) {
 		
+		
+		
+		
 		try {
 			
 		String ip = resultOfCheck.getHost().getUrl();
 		String hostName = resultOfCheck.getHost().getName();
+		
+		
+		if(ip.length() > 29) {
+			ip = ip.substring(0, 29);
+		}
+		
+		
+		
 		
 		HttpClient client = HttpClient.newHttpClient();
 		
