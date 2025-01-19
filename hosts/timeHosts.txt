@@ -1,3 +1,2 @@
 ﻿
-https://hcj.gov.ua/ hcj_down HTTP
-https://hcj.gov.ua/ hcj_down HTTP
+https://dbstatuser:Fphks28CvWk43h@db-stat.ics.gov.ua _db_stat.ics.gov.ua_ HTTP

@@ -17,10 +17,13 @@ import com.entity.ResultOfCheck;
 public class HttpChecker implements Checker {
 
 	
+	private static final int TIMEOUT = 20;
+	
+	
 	public ResultOfCheck check(Host host) {
 		HttpRequest request = null;
 		try {
-			request = HttpRequest.newBuilder(new URI(host.getUrl())).timeout(Duration.ofSeconds(5)).GET().build();
+			request = HttpRequest.newBuilder(new URI(host.getUrl())).timeout(Duration.ofSeconds(TIMEOUT)).GET().build();
 		} catch (URISyntaxException e) {
 			System.out.println(e);
 		}
@@ -35,6 +38,11 @@ public class HttpChecker implements Checker {
 		}
 		
 		if(response != null) {
+			
+			if(host.getUrl().contains("db-stat.ics.gov.ua") && response.statusCode() == 401) {
+				return new ResultOfCheck(host,true);
+			}
+			
 			if(response.statusCode() == 200) {
 				return new ResultOfCheck(host,true);
 			}
@@ -42,6 +50,12 @@ public class HttpChecker implements Checker {
 		
 
 		return new ResultOfCheck(host,false);
+	}
+
+	@Override
+	public ResultOfCheck check(Host host, String body) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

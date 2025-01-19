@@ -1,3 +1,6 @@
 ﻿
-https://hcj.gov.ua/ hcj_down HTTP
-https://hcj.gov.ua/ hcj_down HTTP
+https://dbstatuser:Fphks28CvWk43h@db-stat.ics.gov.ua _db_stat.ics.gov.ua_ HTTP
+#1.1.2.2 _google_dns_ IP
+#222.22.22.2 _test_message_222.22.22.2_ IP
+https://wiki-ccs.court.gov.ua _wiki_ccs.court.gov.ua_ HTTP
+https://id-stg-evd.court.gov.ua _id_stg_evd.court.gov.ua_ HTTP

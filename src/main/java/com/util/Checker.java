@@ -7,4 +7,6 @@ public interface Checker {
 
 	ResultOfCheck check(Host host);
 	
+	ResultOfCheck check(Host host, String body);
+	
 }

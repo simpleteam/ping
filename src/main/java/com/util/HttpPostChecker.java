@@ -14,14 +14,14 @@ import com.entity.ResultOfCheck;
 
 public class HttpPostChecker implements Checker {
 
-	private String body;
+//	private String body;
 	
-	public HttpPostChecker(String body) {
-		this.body = body;
+	public HttpPostChecker() {
+//		this.body = body;
 	}
 	
 	@Override
-	public ResultOfCheck check(Host host) {
+	public ResultOfCheck check(Host host , String body) {
 		HttpRequest request = null;
 		try {
 			request = HttpRequest.newBuilder(new URI(host.getUrl())).timeout(Duration.ofSeconds(15)).POST(BodyPublishers.ofString(body)).build();
@@ -47,6 +47,12 @@ public class HttpPostChecker implements Checker {
 		
 
 		return new ResultOfCheck(host,false);
+	}
+
+	@Override
+	public ResultOfCheck check(Host host) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
