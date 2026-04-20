@@ -42,14 +42,14 @@ public class CheckService {
 	private int count = 0;
 	
 	
-	private String restCSSTrembitaTestPath = "http://212.90.190.170";
-	private Host restCSSTestTrembita = new Host(restCSSTrembitaTestPath, "TREMBITA_ЦСС_REST_TEST", TypeOfHost.POST);
-	private String restCSSTestTrembitaBody = "{    \"jsonrpc\": \"2.0\", \r\n"
-			+ "    \"method\": \"EdrsrDracDocuments.find\",    \"id\": \"4\",\r\n"
-			+ "    \"params\": {        \"where\": {\r\n"
-			+ "           \"courtId\": \"0306\",            \"caseNum\": \"159/4234/20\",\r\n"
-			+ "            \"docTypeId\": \"5\",            \"docDate\": \"2020-09-28\"\r\n" + "        }    }\r\n"
-			+ "}";
+//	private String restCSSTrembitaTestPath = "http://212.90.190.170";
+//	private Host restCSSTestTrembita = new Host(restCSSTrembitaTestPath, "TREMBITA_ЦСС_REST_TEST", TypeOfHost.POST);
+//	private String restCSSTestTrembitaBody = "{    \"jsonrpc\": \"2.0\", \r\n"
+//			+ "    \"method\": \"EdrsrDracDocuments.find\",    \"id\": \"4\",\r\n"
+//			+ "    \"params\": {        \"where\": {\r\n"
+//			+ "           \"courtId\": \"0306\",            \"caseNum\": \"159/4234/20\",\r\n"
+//			+ "            \"docTypeId\": \"5\",            \"docDate\": \"2020-09-28\"\r\n" + "        }    }\r\n"
+//			+ "}";
 	
 	private String restTrembitaPromPath = "http://212.90.190.164/restapi/GOV/26255795/16_EDRSR_prod/v1/rpc?xRoadInstance=SEVDEIR&memberClass=GOV&memberCode=26255795&subsystemCode=16_EDRSR_prod&serviceCode=rpc&serviceVersion=v1&queryId=123";
 	private Host restPromTrembita = new Host(restTrembitaPromPath, "TREMBITA_REST_PROD", TypeOfHost.POST);
@@ -60,13 +60,13 @@ public class CheckService {
 			+ "  \"courtId\": \"2211\",\r\n" + "  \"docDate\": \"2023-02-23\",\r\n" + "  \"docTypeId\": \"3\"\r\n"
 			+ "}\r\n" + "        }\r\n" + "    }s";
 
-	private String restTrembitaTestPath = "http://212.90.190.150";
+	private String restTrembitaTestPath = "http://212.90.190.150/restapi/GOV/26255795/16_EDRSR_prod/v1/rpc?xRoadInstance=SEVDEIR-TEST&memberClass=GOV&memberCode=26255795&subsystemCode=16_EDRSR_prod&serviceCode=rpc&serviceVersion=v1&queryId=123";
 	private Host restTestTrembita = new Host(restTrembitaTestPath, "TREMBITA_REST_TEST", TypeOfHost.POST);
 	private String restTestTrembitaBody = "{    \"jsonrpc\": \"2.0\", \r\n"
-			+ "    \"method\": \"EdrsrDracDocuments.find\",    \"id\": \"4\",\r\n"
+			+ "    \"method\": \"EdrsrDracDocuments.find\",    \"id\": \"xA2JA9ik49\",\r\n"
 			+ "    \"params\": {        \"where\": {\r\n"
-			+ "           \"courtId\": \"0306\",            \"caseNum\": \"159/4234/20\",\r\n"
-			+ "            \"docTypeId\": \"5\",            \"docDate\": \"2020-09-28\"\r\n" + "        }    }\r\n"
+			+ "           \"courtId\": \"2605\",            \"caseNum\": \"756/16667/20\",\r\n"
+			+ "            \"docTypeId\": \"3\",            \"docDate\": \"2024-02-07\"\r\n" + "        }    }\r\n"
 			+ "}";
 
 	private String soapTrembitaTestPath = "http://212.90.190.150";
@@ -169,7 +169,7 @@ public class CheckService {
 			flag.put(host, 0);
 		}
 		
-		flag.put(restCSSTestTrembita, 0);
+//		flag.put(restCSSTestTrembita, 0);
 		flag.put(restPromTrembita, 0);
 		flag.put(restTestTrembita, 0);
 		flag.put(soapPromTrembita, 0);
@@ -194,7 +194,7 @@ public class CheckService {
 //		String path = "http://212.90.190.150/restapi/GOV/26255795/16_EDRSR_prod/v1/rpc?xRoadInstance=SEVDEIR-TEST&memberClass=GOV&memberCode=26255795&subsystemCode=16_EDRSR_prod&serviceCode=rpc&serviceVersion=v1&queryId=123";
 //		Host trembita = new Host(path,"TREMBITA",TypeOfHost.POST);
 
-		tasks.add(new Task(checkers.get(TypeOfHost.POST), restCSSTestTrembita, restCSSTestTrembitaBody));
+//		tasks.add(new Task(checkers.get(TypeOfHost.POST), restCSSTestTrembita, restCSSTestTrembitaBody));
 		tasks.add(new Task(checkers.get(TypeOfHost.POST), restPromTrembita, restPromTrembitaBody));
 		tasks.add(new Task(checkers.get(TypeOfHost.POST), restTestTrembita, restTestTrembitaBody));
 		tasks.add(new Task(checkers.get(TypeOfHost.POST), soapPromTrembita, soapPromTrembitaBody));
@@ -202,15 +202,19 @@ public class CheckService {
 
 		ExecutorService es = Executors.newCachedThreadPool();
 
+		List<Future<ResultOfCheck>> result = null;
+		
 		while (true) {
 			System.out.println("check hosts");
+			
+			System.gc();
 
 			if ((LocalDateTime.now().getHour() < 21) && (LocalDateTime.now().getHour() >= 7)) {
-				List<Future<ResultOfCheck>> result = es.invokeAll(timeTasks);
+				result = es.invokeAll(timeTasks);
 				check(result);
 			}
 
-			List<Future<ResultOfCheck>> result = es.invokeAll(tasks);
+			result = es.invokeAll(tasks);
 			check(result);
 			Thread.currentThread().sleep(120000);
 		}
