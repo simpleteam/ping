@@ -151,12 +151,12 @@ public class CheckService {
 		System.out.println("init hosts");
 
 //		ubuntu
-		Path fileTimePath = Path.of("/home/dc_admin/monitoring/hosts/timeHosts.txt");
-		Path filePath = Path.of("/home/dc_admin/monitoring/hosts/hosts.txt");
+//		Path fileTimePath = Path.of("/home/dc_admin/monitoring/hosts/timeHosts.txt");
+//		Path filePath = Path.of("/home/dc_admin/monitoring/hosts/hosts.txt");
 
 //		windows
-//		Path fileTimePath = Path.of("hosts/timeHosts.txt");
-//		Path filePath = Path.of("hosts/hosts.txt");
+		Path fileTimePath = Path.of("hosts/timeHosts.txt");
+		Path filePath = Path.of("hosts/hosts.txt");
 
 		timeHosts = setUp(fileTimePath);
 		hosts = setUp(filePath);

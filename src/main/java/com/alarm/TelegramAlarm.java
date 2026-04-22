@@ -17,17 +17,17 @@ import com.entity.ResultOfCheck;
 
 public class TelegramAlarm implements Alarm {
 //  prod
-	private String url =  "https://api.telegram.org/bot8694854845:AAHgzIRtGMjZr6bMe7SJtnNbT0N1L5ki7tw/sendmessage?chat_id=-5148520321&text=";  
+//	private String url =  "https://api.telegram.org/bot8694854845:AAHgzIRtGMjZr6bMe7SJtnNbT0N1L5ki7tw/sendmessage?chat_id=-1003914028357&text=";  
 			// "https://api.telegram.org/bot5849341816:AAEhnNKvZtrMESUhpUrThB8T1S7Rd1IBaM4/sendmessage?chat_id=-815432610&text=";
 
 //	test
-//	private String url = "https://api.telegram.org/bot8799329035:AAFtU2nLST4DD7XifT0XG49rUa52LDxgGnE/sendMessage?chat_id=-5292953407&text=";
+	private String url = "https://api.telegram.org/bot8799329035:AAFtU2nLST4DD7XifT0XG49rUa52LDxgGnE/sendmessage?chat_id=-1003928529980&text=";
 	
 //  prod
-	private String urlTeams = "https://sjau.webhook.office.com/webhookb2/5d147e29-bbf8-409f-a047-476743e41d11@3cc6a844-b70c-4073-8398-037b369fd2e4/IncomingWebhook/de33241fddba4f98ad3269c21b7bd16f/e4d2c3a0-036a-4f1e-bce6-175e04274e70/V2lreo2FX0Uutpl3FsLpgi_wycDvVwhhwXgTHJhePNXWI1";
+//	private String urlTeams = "https://sjau.webhook.office.com/webhookb2/5d147e29-bbf8-409f-a047-476743e41d11@3cc6a844-b70c-4073-8398-037b369fd2e4/IncomingWebhook/de33241fddba4f98ad3269c21b7bd16f/e4d2c3a0-036a-4f1e-bce6-175e04274e70/V2lreo2FX0Uutpl3FsLpgi_wycDvVwhhwXgTHJhePNXWI1";
 	
 //	test
-//	private String urlTeams = "https://sjau.webhook.office.com/webhookb2/b36d4d8b-7836-4add-bc97-d1ceb54544d0@3cc6a844-b70c-4073-8398-037b369fd2e4/IncomingWebhook/6e7774cbb90249a7831181cdc4e75834/e4d2c3a0-036a-4f1e-bce6-175e04274e70/V2kgsS4VlajQMXZgLySYDscJUXoOGq-zHiYBddMbvYoo41";
+	private String urlTeams = "https://sjau.webhook.office.com/webhookb2/b36d4d8b-7836-4add-bc97-d1ceb54544d0@3cc6a844-b70c-4073-8398-037b369fd2e4/IncomingWebhook/6e7774cbb90249a7831181cdc4e75834/e4d2c3a0-036a-4f1e-bce6-175e04274e70/V2kgsS4VlajQMXZgLySYDscJUXoOGq-zHiYBddMbvYoo41";
  
 	
 	
@@ -129,6 +129,11 @@ public class TelegramAlarm implements Alarm {
 			HttpResponse<String> response = null;
 
 			response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			
+			
+			System.err.println("------------------------");
+			
+			System.out.println(response);
 			
 			client.close();
 			
