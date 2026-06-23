@@ -23,6 +23,12 @@ public class CheckDbStatService implements Runnable {
 		while(true) {
 			PingChecker checker = new PingChecker();
 			ResultOfCheck r = checker.check(new Host(URL,"_db_stat.ics.gov.ua_",TypeOfHost.HTTP));
+			
+			r.setHost(hideCredential(r.getHost()));
+			
+			
+			System.out.println(r.getHost());
+			
 				if(r.isAvailable() == false && isAvailable == true) {
 					isAvailable = false;
 					log.info(" " + r.getHost().getUrl() + " " + r.getHost().getName() + " DOWN");
@@ -47,6 +53,13 @@ public class CheckDbStatService implements Runnable {
 				
 		}
 		
+	}
+	
+	private Host hideCredential(Host host) {
+		
+		String url = host.getUrl().replace("dbstatuser:Fphks28CvWk43h@", "");
+		
+		return new Host(url,host.getName(),host.getType());
 	}
 	
 	

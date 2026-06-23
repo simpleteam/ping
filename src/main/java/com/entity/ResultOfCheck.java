@@ -14,6 +14,10 @@ public class ResultOfCheck {
 		return host;
 	}
 
+	public void setHost(Host host) {
+		this.host = host;
+	}
+
 	public boolean isAvailable() {
 		return isAvailable;
 	}
